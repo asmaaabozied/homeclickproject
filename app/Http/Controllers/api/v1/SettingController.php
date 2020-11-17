@@ -49,7 +49,12 @@ class SettingController extends Controller
 
             $users = User::where('social_type', $request->twitter_id)->where('twitter_id', $request->twitter_id)->first();
 
+
+
             if ($users) {
+                $token = $users->createToken('MyApp')->accessToken;
+
+                $users->token = $token;
 
                 return response()->json(['status' => 200, 'user' => $users]);
 
@@ -101,6 +106,9 @@ class SettingController extends Controller
             $users = User::where('social_type', $request->social_type)->where('facebook_id', $request->facebook_id)->first();
 
             if ($users) {
+                $token = $users->createToken('MyApp')->accessToken;
+
+                $users->token = $token;
 
                 return response()->json(['status' => 200, 'user' => $users]);
 
@@ -152,6 +160,10 @@ class SettingController extends Controller
             $users = User::where('social_type', $request->social_type)->where('google_id', $request->google_id)->first();
 
             if ($users) {
+
+                $token = $users->createToken('MyApp')->accessToken;
+
+                $users->token = $token;
 
                 return response()->json(['status' => 200, 'user' => $users]);
 
