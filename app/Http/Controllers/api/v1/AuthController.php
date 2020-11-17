@@ -504,8 +504,10 @@ class AuthController extends Controller
             'phone' => 'required|min:9',
             'type' => 'required',
             'country_id' => 'required|integer',
-            'location' => 'required|string',
-            'details' => 'required',
+            'code' => 'required',
+            'latitude'=>'required',
+            'longitude'=>'required',
+            'city_id' => 'required|integer',
 
         ];
         $customMessages = [
@@ -526,9 +528,14 @@ class AuthController extends Controller
             'phone' => $request->phone,
             'address' => $request->address,
             'type' => $request->type,
-            'details' => $request->details,
+            'code' => $request->code,
+            'latitude'=>$request->latitude,
+            'longitude'=>$request->longitude,
+            'default'=>$request->default ?? '0',
+
+            'city_id' => $request->city_id,
+
             'geography_id' => $request->country_id,
-            'location' => $request->location,
             'user_id' => $user_id
         ]);
 
@@ -551,8 +558,11 @@ class AuthController extends Controller
             'phone' => 'required|min:9',
             'type' => 'required',
             'country_id' => 'required|integer',
-            'location' => 'required|string',
-            'details' => 'required',
+            'code' => 'required',
+            'city_id' =>'required|integer',
+            'latitude'=>'required',
+            'longitude'=>'required',
+
 
         ];
         $customMessages = [
@@ -573,13 +583,19 @@ class AuthController extends Controller
 
         $address->firstname = isset($address->firstname) ? $request->firstname : $address->firstname;
         $address->lastname = isset($address->lastname) ? $request->lastname : $address->lastname;
-        $address->details = isset($address->details) ? $request->details : $address->details;
-        $address->location = isset($address->location) ? $request->location : $address->location;
+        $address->code = isset($address->code) ? $request->code : $address->code;
+        $address->city_id = isset($address->city_id) ? $request->city_id : $address->city_id;
         $address->phone = isset($request->phone) ? $request->phone : $address->phone;
         $address->geography_id = isset($request->country_id) ? $request->country_id : '';
         $address->address = isset($request->address) ? $request->address : $address->address;
         $address->type = isset($request->type) ? $request->type : $address->type;
-        $address->save();
+
+        $address->latitude=$request->latitude;
+         $address->longitude=$request->longitude;
+          $address->default=$request->default ?? "0";
+
+           $address->save();
+
 
         return response()->json(['status' =>200,'message' => __('site.messages.opertaion_success'),'address'=> $address]);
 

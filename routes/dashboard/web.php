@@ -61,6 +61,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
             Route::get('reportusers', 'ReportController@reportusers')->name('reportusers');
 
+            Route::get('reportproducts', 'ReportController@reportproducts')->name('reportproducts');
+
+
             Route::get('reportseller', 'ReportController@reportseller')->name('reportseller');
 
 

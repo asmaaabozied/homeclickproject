@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Consultation;
 use App\Lawer;
+use App\Product;
 use App\Store;
 use App\Type;
 use App\Uservistor;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 
 use App\Lawercase;
@@ -30,6 +32,15 @@ class ReportController extends Controller
         return view('dashboard.cases.reports', compact('cases'));
 
     }//end of index
+
+    public function reportproducts(Request $request){
+
+
+        $products=Product::where('family_id',Auth::id())->get();
+
+        return view('dashboard.products.reports', compact('products'));
+
+    }
 
 
     public function reportseller(Request $request){

@@ -59,6 +59,7 @@
                                 <th>@lang('site.users')</th>
 
                                 <th>@lang('site.sellers')</th>
+                                <th>@lang('site.address')</th>
 
                                 <th>@lang('site.type')</th>
 
@@ -85,6 +86,8 @@
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ isset($order->user->name) ? $order->user->name :'' }}</td>
                                     <td>{{$order->store->name  ?? ''}}</td>
+                                    <td>{{ isset($order->address->address) ? $order->address->address :'' }}</td>
+
                                     <td>{{$order->payment_type  ?? ''}}</td>
 
                                     <td>{{$order->copan->discount  ?? ''}}</td>

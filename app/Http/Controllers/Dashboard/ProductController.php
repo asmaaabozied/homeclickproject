@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Category;
 use App\Catogery;
 use App\Product;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
@@ -63,7 +64,7 @@ class ProductController extends Controller
 
         $request->validate($rules);
 
-       $product= Product::create($request->except(['_token','_method','images']));
+       $product= Product::create($request->except(['_token','_method','images'])+ ['family_id'=>Auth::id()]);
 
 
         if($request->file('images')) {

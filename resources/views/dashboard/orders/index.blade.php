@@ -29,19 +29,6 @@
                         <div class="row">
 
 
-                            {{--                            <div class="col-md-4">--}}
-
-                            {{--                                @if (auth()->user()->hasPermission('create_consultations'))--}}
-
-                            {{--                                    <a href="{{ route('dashboard.orders.create') }}" class="btn btn-primary"><i--}}
-                            {{--                                            class="fa fa-plus"></i> @lang('site.add')</a>--}}
-                            {{--                                @else--}}
-                            {{--                                    <a href="#" class="btn btn-primary disabled"><i--}}
-                            {{--                                            class="fa fa-plus"></i> @lang('site.add')</a>--}}
-                            {{--                                @endif--}}
-                            {{--                            </div>--}}
-
-
                         </div>
                     </form><!-- end of form -->
 
@@ -59,6 +46,8 @@
                                 <th>@lang('site.users')</th>
 
                                 <th>@lang('site.sellers')</th>
+
+                                <th>@lang('site.address')</th>
 
                                 <th>@lang('site.number')</th>
 
@@ -81,7 +70,10 @@
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ isset($order->user->name) ? $order->user->name :'' }}</td>
+
                                     <td>{{$order->store->name}}</td>
+                                    <td>{{ isset($order->address->address) ? $order->address->address :'' }}</td>
+
                                     <td>{{ isset($order->number) ? $order->number :'' }}</td>
                                     <td>{{ isset($order->total) ? $order->total :'' }}</td>
 

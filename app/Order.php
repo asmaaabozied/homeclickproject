@@ -21,6 +21,13 @@ class Order extends Model
 
     }//end of user
 
+
+    public function address()
+    {
+        return $this->belongsTo(Address::class, 'address_id')->withDefault();
+
+    }//end of address
+
     public function copan()
     {
         return $this->belongsTo(Capon::class, 'capon_id');

@@ -22,24 +22,24 @@ class OffercatogeryResource extends JsonResource
 
         return [
 
-            'id'=>$catogery->id,
+            'id'=>$catogery->id ?? '',
 
-            'image' => asset('uploads/'. $catogery->icons),
-
-            'name'=>$catogery->name,
-
-//            'description'=>$catogery->description,
+            'image' => !empty(asset('uploads/' . $catogery->icons) ) ? asset('uploads/' . $catogery->icons) :'',
 
 
-            'status'=>$catogery->status,
+            'name'=>$catogery->name ??  '',
 
-            'start_at_discount'=>$this->start_at,
 
-            'end_at_discount'=>$this->end_at,
 
-            'created_at' => $catogery->created_at->diffForHumans(Carbon::now()),
+            'status'=>$catogery->status ?? '',
 
-            'updated_at' =>$catogery->created_at->diffForHumans(Carbon::now()),
+            'start_at_discount'=>$this->start_at ?? '',
+
+            'end_at_discount'=>$this->end_at ?? '',
+
+            'created_at' => $catogery->created_at->diffForHumans(Carbon::now()) ?? '',
+
+            'updated_at' =>$catogery->created_at->diffForHumans(Carbon::now()) ?? '',
 
 
 

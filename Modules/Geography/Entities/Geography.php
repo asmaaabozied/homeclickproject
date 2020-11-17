@@ -15,13 +15,13 @@ class Geography extends Model
 
     protected $fillable = ['name','parent_id'];
     protected $hidden = [
-        'created_at', 'updated_at',
+        'created_at', 'updated_at','translations'
     ];
 
 
 
 
-    public $with=['cities'];
+//    public $with=['cities'];
 
     public function Cities(){
 

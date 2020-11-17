@@ -46,6 +46,38 @@ class OrderController extends Controller
     }
 
 
+    public function canceled_order(Request $request)
+    {
+
+        $rule = [
+
+            'order_id' => 'required',
+
+
+        ];
+
+        $customMessages = [
+            'required' => __('validation.attributes.required'),
+        ];
+
+        $validator = validator()->make($request->all(), $rule, $customMessages);
+
+        if ($validator->fails()) {
+
+            return response()->json(['status' => 422, 'message' => validationErrorsToString($validator->errors())], 422);
+
+        }
+
+
+        $order = Order::find($request->order_id);
+
+        $order->update(['status' => 'canceled']);
+
+        return response()->json(['status' => 200, 'message' => __('site.messages.ordersuccess')]);
+
+
+    }
+
     public function add_order(Request $request)
     {
 
@@ -57,7 +89,9 @@ class OrderController extends Controller
 
             'payment_id' => 'required',
 
-            'coupan' => 'required',
+            'total' => 'required',
+
+
 
 //            'quantity' => 'required'
 
@@ -82,7 +116,11 @@ class OrderController extends Controller
 
             'payment_id' => $request->payment_id,
 
-            'coupan' => $request->coupan,
+            'total' => $request->total,
+
+            'number'=>rand(11111, 99999),
+
+            'user_id'=>Auth::id()
 
         ]);
 
@@ -95,8 +133,7 @@ class OrderController extends Controller
             array_push($ordersArray, $order);
         }
 
-        return response()->json(['status' =>200,'message' => __('site.messages.opertaion_success'),'orders'=> $ordersArray]);
-
+        return response()->json(['status' => 200, 'message' => __('site.messages.opertaion_success')]);
 
 
     }

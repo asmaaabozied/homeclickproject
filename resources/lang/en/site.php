@@ -354,6 +354,7 @@ return [
     ],
 
     'messages' => [
+        'ordersuccess'=>'order canceled successfully',
         'validreset' => 'Please check the phone or email to get the registration code',
 
         'user_Invalid' => 'username_Invalid ',

@@ -151,6 +151,14 @@ return [
 
 
     'attributes' => [
+        'social_type'=>'التواصل',
+        'google_id'=>'رقم جؤجل',
+        'twitter_id'=>'رقم',
+        'facebook_id'=>'رقم الفيس',
+        'latitude'=>'الطؤل',
+        'longitude'=>'العرض',
+        'total'=>'الاجمالي',
+        'order_id'=>'رقم الطلب',
         'rating'=>'التقيم',
         'geography_id'=>'المنطقه',
 

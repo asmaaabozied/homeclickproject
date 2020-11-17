@@ -128,6 +128,7 @@ Route::group(['prefix' => '{locale}'], function () {
     Route::get('details_orders', 'api\v1\OrderController@details_orders')->middleware(['auth:api']);
     Route::post('add_order', 'api\v1\OrderController@add_order')->middleware(['auth:api']);
 
+    Route::get ('canceled_order', 'api\v1\OrderController@canceled_order')->middleware(['auth:api']);
 
     // End of Orders
 
@@ -143,6 +144,9 @@ Route::group(['prefix' => '{locale}'], function () {
 
 
     Route::get('listofcities', 'api\v1\CityController@cities');
+
+    Route::get('listofcountry', 'api\v1\CityController@listofcountry');
+
 
 
     //consulations
@@ -168,6 +172,9 @@ Route::group(['prefix' => '{locale}'], function () {
 
 
     Route::get('settings', 'api\v1\SettingController@settings');
+
+    Route::post('social_login', 'api\v1\SettingController@social_login');
+
 
 
 });

@@ -149,6 +149,15 @@ return [
 
 
     'attributes' => [
+        'social_type'=>'social_type',
+        'google_id'=>'google_id',
+        'twitter_id'=>'twitter_id',
+        'facebook_id'=>'facebook_id',
+        'latitude'=>'latitude',
+        'longitude'=>'longitude',
+        'total'=>'total',
+
+        'order_id'=>'order_id',
         'geography_id'=>'geography_id',
         'rating'=>'rating',
         'common'=>'common',

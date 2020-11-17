@@ -102,7 +102,7 @@
                                             </form><!-- end of form -->
                                         @else
                                             <button class="btn btn-danger btn-sm disabled"><i
-                                                    class="fa fa-trash"></i> @lang('site.delete')</button> --}}
+                                                    class="fa fa-trash"></i> @lang('site.delete')</button>
                                         @endif
                                     </td>
                                 </tr>

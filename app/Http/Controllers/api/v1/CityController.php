@@ -27,36 +27,41 @@ class CityController extends Controller
 {
 
 
-
     public function __construct()
     {
-        $local=(!empty(Request()->route()))?(Request()->route()->parameters()['locale']): 'en';
+        $local = (!empty(Request()->route())) ? (Request()->route()->parameters()['locale']) : 'en';
         LaravelLocalization::setLocale($local);
     }
 
 
-
-
-
     public function cities()
     {
-        $cities=Geography::whereNull('parent_id')->get();
+        $cities = Geography::whereNull('parent_id')->get();
 
-//
 
-//        $citiess= CityResource::collection($cities);
-
-        return response()->json(['status'=>200,'countries'=>$cities]);
+        return response()->json(['status' => 200, 'countries' => $cities]);
 
     }
 
-    public function jobs(){
 
-         $catogeryjobs=Catogeryjob::where('status',1)->get();
+    public function listofcountry()
+    {
 
-        $jobs= CityResource::collection($catogeryjobs);
+        $cities = Geography::where('parent_id', '!=', null)->get();
 
-        return response()->json(['status'=>200,'jobs'=>$jobs]);
+        return response()->json(['status' => 200, 'cities' => $cities]);
+
+
+    }
+
+    public function jobs()
+    {
+
+        $catogeryjobs = Catogeryjob::where('status', 1)->get();
+
+        $jobs = CityResource::collection($catogeryjobs);
+
+        return response()->json(['status' => 200, 'jobs' => $jobs]);
 
 
     }

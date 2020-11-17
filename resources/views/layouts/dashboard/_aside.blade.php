@@ -17,7 +17,7 @@
 
             <li><a href="{{ route('dashboard.welcome') }}"><i
                         class="fa fa-dashboard"></i><span>@lang('site.dashboard')</span></a></li>
-
+            @if (auth()->user()->hasPermission('read_roles'))
 
             <li class="treeview">
                 <a href="#">
@@ -41,13 +41,15 @@
                                     class="fa fa-users"></i><span>@lang('site.users')</span></a></li>
                     @endif
 
-{{--                        @if (auth()->user()->hasPermission('read_sellers'))--}}
+                        @if (auth()->user()->hasPermission('read_sellers'))
                         <li><a href="{{ route('dashboard.sellers.index') }}"><i
                                     class="fa fa-users"></i><span>@lang('site.sellers')</span></a></li>
-{{--                    @endif--}}
+                    @endif
                 </ul>
                 r
             </li>
+
+            @endif
 
             {{--            @if (auth()->user()->hasPermission('read_news'))--}}
             {{--                <li><a href="{{ route('dashboard.news_categories.index') }}"><i class="fa fa-newspaper-o"></i><span>@lang('site.news')</span></a></li>--}}
@@ -350,7 +352,6 @@
             @endif
 
 
-            @if (auth()->user()->hasPermission('read_consultations'))
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-newspaper-o"></i>
@@ -360,6 +361,10 @@
                     </span>
                     </a>
                     <ul class="treeview-menu" style="display:none">
+
+                        <li><a href="{{ route('dashboard.reportproducts') }}"><i
+                                    class="fa fa-building-o"></i><span>@lang('site.products')</span></a></li>
+                        @if (auth()->user()->hasPermission('read_consultations'))
 
                         <li><a href="{{ route('dashboard.reportusers') }}"><i
                                     class="fa fa-building-o"></i><span>@lang('site.users')</span></a></li>
