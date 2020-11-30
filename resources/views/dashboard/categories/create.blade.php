@@ -51,6 +51,11 @@
                                               style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{ old($locale . '.description') }}</textarea>                             </div>
                         @endforeach
 
+
+
+
+
+
                         <div class="form-group">
                             <button type="button" class="btn btn-warning mr-1"
                                     onclick="history.back();">

@@ -64,6 +64,47 @@
                         </div>
 
 
+                        <div class="row">
+
+                            <!-- Discount Start Date Field -->
+                            <div class="form-group col-md-6">
+                                <label>@lang('site.start_at')</label>
+
+                                <input type="date" name="start_at" class="form-control date" value="{{$subscribe->start_at}}" required>
+
+
+                            </div>
+
+                            <!-- Discount End Date Field -->
+                            <div class="form-group col-md-6">
+                                <label>@lang('site.end_at')</label>
+
+                                <input type="date" name="end_at" class="form-control date"   value="{{$subscribe->end_at}}" required>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="row">
+
+
+                            <div class="form-group col-md-6">
+
+                                <label>@lang('site.price')</label>
+
+                                <input type="text" name="price" class="form-control"    value="{{$subscribe->price}}"  required >
+                            </div>
+
+                            <div class="form-group col-md-6">
+
+                                <label>@lang('site.period')</label>
+
+                                <input type="text" name="period" class="form-control"  value="{{$subscribe->period}}" required >
+                            </div>
+                        </div>
+
+
 
                         <div class="form-group">
                             <button type="button" class="btn btn-warning mr-1"

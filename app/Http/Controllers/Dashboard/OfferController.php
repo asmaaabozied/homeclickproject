@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Category;
 use App\Catogery;
 use App\Mail\MailMessage;
 use App\Notification;
@@ -16,6 +17,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
@@ -32,9 +34,11 @@ class OfferController extends Controller
      * @param Request $request
      * @return Response
      */
+
+
     public function index(Request $request)
     {
-        $offers = Offer::latest()->paginate(Paginate_number);
+        $offers = Offer::where('store_id', Auth::id())->latest()->paginate(Paginate_number);
 
 
         return view('dashboard.offers.index', compact('offers'));
@@ -47,9 +51,9 @@ class OfferController extends Controller
     public function create()
     {
 
-        $products = Product::get()->pluck('name', 'id');
+        $products = Product::where('family_id', Auth::id())->get()->pluck('name', 'id');
 
-        $catogeries = Catogery::get()->pluck('name', 'id');
+        $catogeries = Category::where('store_id', Auth::id())->get()->pluck('name', 'id');
 
         $offers = Store::get()->pluck('name', 'id');
 
@@ -68,6 +72,9 @@ class OfferController extends Controller
 
 
         $offer = Offer::create($request->except(['_token', '_method']));
+        $offer->store_id = Auth::id();
+
+        $offer->save();
 
 
         $name = $offer->store->name;
@@ -136,9 +143,9 @@ class OfferController extends Controller
     public function edit(Offer $offer)
     {
 
-        $products = Product::get()->pluck('name', 'id');
+        $products = Product::where('family_id', Auth::id())->get()->pluck('name', 'id');
 
-        $catogeries = Catogery::get()->pluck('name', 'id');
+        $catogeries = Category::where('store_id', Auth::id())->get()->pluck('name', 'id');
 
         $offers = Store::get()->pluck('name', 'id');
 

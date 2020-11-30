@@ -120,9 +120,9 @@
 
 
                                         @if (auth()->user()->hasPermission('update_consultations'))
-                                            <a href="{{ route('dashboard.orders.edit', $order->id) }}"
+                                            <a href="{{ route('dashboard.orders.show', $order->id) }}"
                                                class="btn btn-info btn-sm"><i
-                                                    class="fa fa-edit"></i> @lang('site.edit')</a>
+                                                    class="fa fa-address-book"></i> @lang('site.show')</a>
                                         @else
                                             <a href="#" class="btn btn-info btn-sm disabled"><i
                                                     class="fa fa-edit"></i> @lang('site.edit')</a>

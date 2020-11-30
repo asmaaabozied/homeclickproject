@@ -9,7 +9,8 @@
             <h1>@lang('site.products')</h1>
 
             <ol class="breadcrumb">
-                <li><a href="{{ route('dashboard.welcome') }}"><i class="fa fa-dashboard"></i> @lang('site.dashboard')</a></li>
+                <li><a href="{{ route('dashboard.welcome') }}"><i class="fa fa-dashboard"></i> @lang('site.dashboard')
+                    </a></li>
                 <li class="active">@lang('site.products')</li>
             </ol>
         </section>
@@ -21,23 +22,23 @@
                 <div class="box-header with-border">
 
 
+                    @if (auth()->user()->hasPermission('create_sponsers'))
+
+
+                        <a href="" class="btn btn-primary disabled"><i
+                                class="fa fa-plus"></i> @lang('site.add')</a>
+                        <h3 class="box-title" style="margin-bottom: 15px">@lang('site.products')
+                            <small></small></h3>
 
 
 
-{{--                               @if (auth()->user()->hasPermission('create_sponsers'))--}}
+                    @else
+                        <a href="{{ route('dashboard.products.create') }}" class="btn btn-primary"><i
+                                class="fa fa-plus"></i> @lang('site.add')</a>
+                    @endif
 
 
-                                    <a href="{{ route('dashboard.products.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> @lang('site.add')</a>
-                                <h3 class="box-title" style="margin-bottom: 15px">@lang('site.products') <small>({{ $products->total() }})</small></h3>
-
-
-                                {{--
- @else--}}
-{{--                                    <a href="#" class="btn btn-primary disabled"><i class="fa fa-plus"></i> @lang('site.add')</a>--}}
-{{--                               @endif--}}
-
-
-                        </div>
+                </div>
 
 
                 <div class="box-body">
@@ -57,8 +58,6 @@
                                 <th>@lang('site.image')</th>
 
 
-
-
                                 <th>@lang('site.created_at')</th>
                                 <th>@lang('site.status')</th>
 
@@ -74,12 +73,14 @@
                                     <td>{{ $product->name }}</td>
                                     <td>{{ $product->category->name }}</td>
                                     <td>{{ $product->price }}</td>
-                                    <td><img src="{{asset('uploads/'.$product->image)}}" style="width:100px; height:100px"></td>
+                                    <td><img src="{{asset('uploads/'.$product->image)}}"
+                                             style="width:100px; height:100px"></td>
 
                                     <td>{{isset($product->created_at) ? $product->created_at->diffForHumans() :'' }}</td>
                                     <td>
 
-                                        <form action="{{ route('dashboard.products.status', $product->id) }}" method="post" style="display: inline-block">
+                                        <form action="{{ route('dashboard.products.status', $product->id) }}"
+                                              method="post" style="display: inline-block">
                                             {{ csrf_field() }}
                                             {{ method_field('POST') }}
 
@@ -98,25 +99,33 @@
                                     </td>
 
 
-
                                     <td>
-{{--                                        @if (auth()->user()->hasPermission('edit_sponsers'))--}}
+                                        @if (auth()->user()->hasPermission('delete_sponsers'))
+                                            <a href=""
+                                               class="btn btn-info btn-sm disabled"><i
+                                                    class="fa fa-edit"></i> @lang('site.edit')</a>
+                                        @else
+                                            <a href="{{ route('dashboard.products.edit', $product->id) }}"
+                                               class="btn btn-info btn-sm"><i
+                                                    class="fa fa-edit"></i> @lang('site.edit')</a>
+                                        @endif
+                                        @if (auth()->user()->hasPermission('delete_sponsers'))
 
-                                            <a href="{{ route('dashboard.products.edit', $product->id) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> @lang('site.edit')</a>
-{{--                                        @else--}}
-{{--                                            <a href="#" class="btn btn-info btn-sm disabled"><i class="fa fa-edit"></i> @lang('site.edit')</a>--}}
-{{--                                        @endif--}}
-{{--                                            @if (auth()->user()->hasPermission('delete_sponsers'))--}}
+                                            <button class="btn btn-danger btn-sm disabled"><i
+                                                    class="fa fa-trash"></i> @lang('site.delete')</button>
+
+                                        @else
 
 
-                                            <form action="{{ route('dashboard.products.destroy', $product->id) }}" method="post" style="display: inline-block">
+
+                                            <form action="{{ route('dashboard.products.destroy', $product->id) }}"
+                                                  method="post" style="display: inline-block">
                                                 {{ csrf_field() }}
                                                 {{ method_field('delete') }}
-                                                <button type="submit" class="btn btn-danger delete btn-sm"><i class="fa fa-trash"></i> @lang('site.delete')</button>
+                                                <button type="submit" class="btn btn-danger delete btn-sm"><i
+                                                        class="fa fa-trash"></i> @lang('site.delete')</button>
                                             </form><!-- end of form -->
-{{--                                        @else--}}
-{{--                                            <button class="btn btn-danger btn-sm disabled"><i class="fa fa-trash"></i> @lang('site.delete')</button>--}}
-{{--                                            @endif--}}
+                                        @endif
                                     </td>
                                 </tr>
 
@@ -135,11 +144,10 @@
 
                     @endif
                 </div><!-- end of box header -->
-                </div><!-- end of box body -->
+            </div><!-- end of box body -->
         </section>
 
-            <!-- end of box -->
-
+        <!-- end of box -->
 
 
     </div><!-- end of content wrapper -->

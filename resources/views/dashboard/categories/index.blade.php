@@ -50,7 +50,6 @@
                             <tr>
                                 <th>#</th>
                                 <th>@lang('site.name')</th>
-                                <th>@lang('site.description')</th>
                                 @if (auth()->user()->hasPermission('update_categories','delete_categories'))
 
                                 <th>@lang('site.action')</th>
@@ -63,7 +62,6 @@
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $category->name }}</td>
-                                    <td>{{ $category->description }}</td>
 
                                     <td>
 {{--                                        @if (auth()->user()->hasPermission('update_categories'))--}}

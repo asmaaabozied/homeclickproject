@@ -88,11 +88,17 @@ Route::group(['prefix' => '{locale}'], function () {
 
     Route::post('add_ratingsellers', 'api\v1\StoreController@add_ratingsellers');
 
-    Route::get('filtersellers', 'api\v1\StoreController@filtersellers');
+    Route::get('filterseller', 'api\v1\StoreController@filterseller');
+
+
+    Route::get('offersellers', 'api\v1\StoreController@offersellers');
 
 
 
     Route::get('listofsellers', 'api\v1\StoreController@listofsellers');
+
+    Route::get('filtersellers', 'api\v1\StoreController@filtersellers');
+
 
     Route::get('details_sellers', 'api\v1\StoreController@details_sellers');
 
@@ -128,7 +134,7 @@ Route::group(['prefix' => '{locale}'], function () {
     Route::get('details_orders', 'api\v1\OrderController@details_orders')->middleware(['auth:api']);
     Route::post('add_order', 'api\v1\OrderController@add_order')->middleware(['auth:api']);
 
-    Route::get ('canceled_order', 'api\v1\OrderController@canceled_order')->middleware(['auth:api']);
+    Route::get('canceled_order', 'api\v1\OrderController@canceled_order')->middleware(['auth:api']);
 
     // End of Orders
 
@@ -143,10 +149,9 @@ Route::group(['prefix' => '{locale}'], function () {
     Route::post('visitors', 'api\v1\VisitorController@AddVisitor');
 
 
-    Route::get('listofcities', 'api\v1\CityController@cities');
-
     Route::get('listofcountry', 'api\v1\CityController@listofcountry');
 
+    Route::get('listofcities', 'api\v1\CityController@listofcities');
 
 
     //consulations
@@ -174,7 +179,6 @@ Route::group(['prefix' => '{locale}'], function () {
     Route::get('settings', 'api\v1\SettingController@settings');
 
     Route::post('social_login', 'api\v1\SettingController@social_login');
-
 
 
 });

@@ -21,6 +21,9 @@ class ProductssResource extends JsonResource
 
             'name'=>$this->name,
 
+            'seller_id'=>$this->family_id ?? '',
+
+
             'description'=>$this->description,
 
             'status'=>$this->status,

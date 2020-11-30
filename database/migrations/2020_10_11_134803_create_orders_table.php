@@ -24,7 +24,7 @@ class CreateOrdersTable extends Migration
 
             $table->string('address_id')->nullable();
             $table->string('payment_type')->nullable();
-            $table->integer('coupan')->nullable();
+            $table->string('copan')->nullable();
             $table->integer('payment_id')->nullable();
 
 //            $table->string('lang_code')->nullable();

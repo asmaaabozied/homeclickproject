@@ -318,7 +318,7 @@ class AuthController extends Controller
 //             'name'    => 'required|string',
                 'phone' => 'required|min:9',
                 'address' => 'required|string',
-                'image' => 'required',
+//                'image' => 'required',
 
             ];
             $customMessages = [
@@ -336,7 +336,7 @@ class AuthController extends Controller
             $user = User::findorfail(Auth::id());
 
 
-            $user->image = asset('uploads/' . $request->image);
+            $user->image = !empty(asset('uploads/' . $request->image) ) ? asset('uploads/' . $request->image) :'';
             $user->email = isset($request->email) ? $request->email : $user->email;
             $user->phone = isset($request->phone) ? $request->phone : $user->phone;
             $user->address = isset($request->address) ? $request->address : $user->address;

@@ -140,6 +140,50 @@
                         </div>
 
 
+                        <div class="row">
+
+
+                            <div class="form-group col-md-6">
+
+                                <label>@lang('site.lat')</label>
+
+                                <input type="text" name="lat" class="form-control"  >
+                            </div>
+
+                            <div class="form-group col-md-6">
+
+                                <label>@lang('site.lon')</label>
+
+                                <input type="text" name="lon" class="form-control"  >
+                            </div>
+
+
+                        </div>
+
+
+
+                        <div class="row">
+
+
+                            <div class="form-group col-md-6">
+
+                                <label>@lang('site.value')</label>
+
+                                <input type="text" name="value" class="form-control" value="{{$store->value}}" >
+                            </div>
+
+                            <div class="form-group col-md-6">
+
+                                <label>@lang('site.hours')</label>
+
+                                <input type="text" name="hours" class="form-control" value="{{$store->hours}}" >
+                            </div>
+
+
+                        </div>
+
+
+
          <div class="row">
 
                         <div class="form-group col-md-6">
@@ -147,6 +191,16 @@
                             <label>@lang('site.description')</label>
                             <textarea  name="description" class="form-control" id="summary-ckeditor" rows="11" cols="80" value="" >{{$store->description}}</textarea>
                         </div>
+
+
+             <div class="form-group col-md-6">
+
+                 <label>@lang('site.icon')</label>
+
+                 <input type="file" class="form-control"  name='icon'>
+
+
+             </div>
                 </div>
 
 

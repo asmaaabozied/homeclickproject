@@ -88,12 +88,11 @@ class OrderController extends Controller
             'address_id' => 'required',
 
             'payment_id' => 'required',
+            'payment_type'=>'required',
 
             'total' => 'required',
 
-
-
-//            'quantity' => 'required'
+            'capon' => 'required'
 
 
         ];
@@ -118,7 +117,12 @@ class OrderController extends Controller
 
             'total' => $request->total,
 
+            'capon'=>$request->capon,
+
+            'payment_type'=>$request->payment_type,
+
             'number'=>rand(11111, 99999),
+
 
             'user_id'=>Auth::id()
 
@@ -160,6 +164,8 @@ class OrderController extends Controller
             return response()->json(['status' => 422, 'message' => validationErrorsToString($validator->errors())], 422);
 
         }
+
+
 
 
         $orders = Order::where('user_id', Auth::id())->where('status', $request->type)->with('products')->get();

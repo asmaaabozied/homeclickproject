@@ -64,7 +64,8 @@
                             <div class="form-group col-md-6">
                                 <label>@lang('site.start_at')</label>
 
-                                <input type="date" name="start_at" class="form-control date"  value="{{$capon->start_at}}" required>
+                                <input type="date" name="start_at" class="form-control date"
+                                       value="{{$capon->start_at}}" required>
 
 
                             </div>
@@ -73,7 +74,41 @@
                             <div class="form-group col-md-6">
                                 <label>@lang('site.end_at')</label>
 
-                                <input type="date" name="end_at" class="form-control date" value="{{$capon->end_at}}"  required>
+                                <input type="date" name="end_at" class="form-control date" value="{{$capon->end_at}}"
+                                       required>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="row">
+
+
+                            <div class="form-group col-md-6">
+
+                                <label>@lang('site.categories')</label>
+
+                                <select class="form-control select2" name="catogery_id" id="parent" required>
+                                    <option selected disabled>{{trans('site.select')}}</option>
+                                    @foreach($catogeries as $id => $item)
+                                        <option value="{{$id}}"
+                                                @if($capon->catogery_id ==$id) selected @endif >{{$item}}</option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+                            <div class="form-group col-md-6">
+
+                                <label>@lang('site.products')</label>
+
+                                <select class="form-control select2" name="product_id" id="parent" required>
+                                    <option selected disabled>{{trans('site.select')}}</option>
+                                    @foreach($products as $id => $item)
+                                        <option value="{{$id}}"
+                                                @if($capon->product_id ==$id) selected @endif >{{$item}}</option>
+                                    @endforeach
+                                </select>
 
                             </div>
 

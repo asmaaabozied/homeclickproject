@@ -8,6 +8,7 @@ use App\Http\Resources\SellerResource;
 use App\Http\Resources\StoreResource;
 use App\Image;
 use App\Job;
+use App\Offer;
 use App\Product_User;
 use App\Rating;
 use App\Store;
@@ -39,6 +40,37 @@ class StoreController extends Controller
         LaravelLocalization::setLocale($local);
     }
 
+
+
+    public function offersellers(Request $request){
+
+
+        $rule = [
+            'store_id' => 'required',
+
+        ];
+
+        $customMessages = [
+            'required' => __('validation.attributes.required'),
+        ];
+
+        $validator = validator()->make($request->all(), $rule, $customMessages);
+
+        if ($validator->fails()) {
+
+            return response()->json(['status' => 422, 'message' => validationErrorsToString($validator->errors())], 422);
+
+        }
+
+
+        $offers=Offer::where('store_id',$request->store_id)->get();
+
+
+        return response()->json(['status' => 200, 'offers' => $offers]);
+
+
+
+    }
 
 
     public function filtersellers(Request $request){
@@ -138,6 +170,17 @@ class StoreController extends Controller
 
 
         $sellers = Store::where('catogery_id', $request->category_id)->where('status', 1)->get();
+
+        $sellerss = SellerResource::collection($sellers);
+
+        return response()->json(['status' => 200, 'sellers' => $sellerss]);
+
+
+    }
+
+    public function filterseller(Request $request){
+
+        $sellers = Store::orderBy('lat', 'desc')->orderBy('lon', 'desc')->where('status', 1)->get();
 
         $sellerss = SellerResource::collection($sellers);
 

@@ -35,6 +35,19 @@
 
                             <div class="form-group col-md-6">
 
+                                <label>@lang('site.categories')</label>
+
+                                <select class="form-control select2" name="catogery_id" id="parent" required>
+                                    <option selected disabled>{{trans('site.select')}}</option>
+                                    @foreach($catogeries as $id => $item)
+                                        <option value="{{$id}}" >{{$item}}</option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+
+                            <div class="form-group col-md-6">
+
                                 <label>@lang('site.products')</label>
 
                                 <select class="form-control select2" name="product_id" id="parent" required>
@@ -49,70 +62,48 @@
 
 
 
+                        </div>
+
+
+
+                        <div class="row">
+
+                            <!-- Discount Start Date Field -->
+                            <div class="form-group col-md-6">
+                                <label>@lang('site.start_at')</label>
+
+                                <input type="date" name="start_at" class="form-control date" required>
+
+
+                            </div>
+
+                            <!-- Discount End Date Field -->
+                            <div class="form-group col-md-6">
+                                <label>@lang('site.end_at')</label>
+
+                                <input type="date" name="end_at" class="form-control date" required>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="row">
+
+
+
 
                             <div class="form-group col-md-6">
 
                                 <label>@lang('site.discount')</label>
 
-                            <input type="number" name="discount" class="form-control" required>
+                                <input type="number" name="discount" class="form-control" required>
 
                             </div>
+
+
 
                         </div>
-
-
-                        <div class="row">
-
-
-                            <div class="form-group col-md-6">
-
-                                <label>@lang('site.categories')</label>
-
-                                <select class="form-control select2" name="catogery_id" id="parent" required>
-                                    <option selected disabled>{{trans('site.select')}}</option>
-                                    @foreach($catogeries as $id => $item)
-                                        <option value="{{$id}}" >{{$item}}</option>
-                                    @endforeach
-                                </select>
-
-                            </div>
-                            <div class="form-group col-md-6">
-
-                                <label>@lang('site.sellers')</label>
-
-                                <select class="form-control select2" name="store_id" id="parent" required>
-                                    <option selected disabled>{{trans('site.select')}}</option>
-                                    @foreach($offers as $id => $item)
-                                        <option value="{{$id}}" >{{$item}}</option>
-                                    @endforeach
-                                </select>
-
-                            </div>
-
-                        </div>
-
-                        <div class="row">
-
-    <!-- Discount Start Date Field -->
-    <div class="form-group col-md-6">
-        <label>@lang('site.start_at')</label>
-
-        <input type="date" name="start_at" class="form-control date" required>
-
-
-    </div>
-
-    <!-- Discount End Date Field -->
-    <div class="form-group col-md-6">
-        <label>@lang('site.end_at')</label>
-
-        <input type="date" name="end_at" class="form-control date" required>
-
-    </div>
-
-                      </div>
-
-
 
 
                         <div class="form-group">

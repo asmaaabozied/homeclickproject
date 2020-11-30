@@ -47,7 +47,7 @@ class SettingController extends Controller
         if ($request->twitter_id) {
 
 
-            $users = User::where('social_type', $request->twitter_id)->where('twitter_id', $request->twitter_id)->first();
+            $users = User::where('social_type', $request->social_type)->where('twitter_id', $request->twitter_id)->first();
 
 
 

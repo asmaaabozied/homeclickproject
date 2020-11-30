@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Category;
 use App\Catogery;
+use App\Store;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -13,9 +14,9 @@ class CategoryController extends Controller
 {
     public function index(Request $request)
     {
-       //abort_unless(\Gate::allows('read_categories'), 403);
+        //abort_unless(\Gate::allows('read_categories'), 403);
 
-        $categories = Category::latest()->paginate(25);
+        $categories = Category::where('store_id',Auth::user()->id)->latest()->paginate(25);
 
         return view('dashboard.categories.index', compact('categories'));
 
@@ -23,17 +24,18 @@ class CategoryController extends Controller
 
     public function create()
     {
-      // abort_unless(\Gate::allows('create_categories'), 403);
+        // abort_unless(\Gate::allows('create_categories'), 403);
+
+        $sellers = Store::get()->pluck('name', 'id');
 
 
-
-        return view('dashboard.categories.create');
+        return view('dashboard.categories.create',compact('sellers'));
 
     }//end of create
 
     public function store(Request $request)
     {
-          $user_id=Auth::user()->id ?? '';
+        $user_id = Auth::user()->id ?? '';
 //
 //return $request;
 
@@ -42,14 +44,14 @@ class CategoryController extends Controller
 
         foreach (config('translatable.locales') as $locale) {
 
-            $rules += [$locale . '.name' => ['required', Rule::unique('category_translations', 'name')]];
-            $rules += [$locale . '.description' => ['required', Rule::unique('category_translations', 'description')]];
+            $rules += [$locale . '.name' => ['required']];
+            $rules += [$locale . '.description' => ['required']];
 
         }//end of for each
 
         $request->validate($rules);
 
-        Category::create($request->all()+['store_id'=>$user_id]);
+        Category::create($request->all() + ['store_id' => $user_id]);
         session()->flash('success', __('site.added_successfully'));
         return redirect()->route('dashboard.categories.index');
 
@@ -57,7 +59,9 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
-        return view('dashboard.categories.edit', compact('category'));
+        $sellers = Store::get()->pluck('name', 'id');
+
+        return view('dashboard.categories.edit', compact('category','sellers'));
 
     }//end of edit
 
@@ -67,7 +71,7 @@ class CategoryController extends Controller
 
         foreach (config('translatable.locales') as $locale) {
 
-            $rules += [$locale . '.name' => ['required', Rule::unique('category_translations', 'name')->ignore($category->id, 'category_id')]];
+            $rules += [$locale . '.name' => ['required']];
 
         }//end of for each
 
@@ -81,7 +85,7 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
-      //  abort_unless(\Gate::allows('category_delete'), 403);
+        //  abort_unless(\Gate::allows('category_delete'), 403);
 
         $category->delete();
         session()->flash('success', __('site.deleted_successfully'));

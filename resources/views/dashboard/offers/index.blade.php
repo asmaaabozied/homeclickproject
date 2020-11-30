@@ -32,10 +32,12 @@
 
                             @if (auth()->user()->hasPermission('create_consultations'))
 
-                                <a href="{{ route('dashboard.offers.create') }}" class="btn btn-primary"><i
+                                <a href="#" class="btn btn-primary disabled"><i
                                         class="fa fa-plus"></i> @lang('site.add')</a>
                             @else
-                                <a href="#" class="btn btn-primary disabled"><i
+
+
+                                <a href="{{ route('dashboard.offers.create') }}" class="btn btn-primary"><i
                                         class="fa fa-plus"></i> @lang('site.add')</a>
                             @endif
                         </div>
@@ -85,24 +87,29 @@
 
 
                                         @if (auth()->user()->hasPermission('update_consultations'))
+                                            <a href="#" class="btn btn-info btn-sm disabled"><i
+                                                    class="fa fa-edit"></i> @lang('site.edit')</a>
+
+                                        @else
+
+
                                             <a href="{{ route('dashboard.offers.edit', $value->id) }}"
                                                class="btn btn-info btn-sm"><i
                                                     class="fa fa-edit "></i> @lang('site.edit')</a>
-                                        @else
-                                            <a href="#" class="btn btn-info btn-sm disabled"><i
-                                                    class="fa fa-edit"></i> @lang('site.edit')</a>
                                         @endif
                                         @if (auth()->user()->hasPermission('delete_consultations'))
-                                            <form action="{{ route('dashboard.offers.destroy', $value->id) }}"
-                                                  method="post" style="display: inline-block">
-                                                {{ csrf_field() }}
-                                                {{ method_field('delete') }}
-                                                <button type="submit" class="btn btn-danger delete btn-sm"><i
+                                                <button class="btn btn-danger btn-sm disabled"><i
                                                         class="fa fa-trash"></i> @lang('site.delete')</button>
-                                            </form><!-- end of form -->
                                         @else
-                                            <button class="btn btn-danger btn-sm disabled"><i
-                                                    class="fa fa-trash"></i> @lang('site.delete')</button>
+
+
+                                                <form action="{{ route('dashboard.offers.destroy', $value->id) }}"
+                                                      method="post" style="display: inline-block">
+                                                    {{ csrf_field() }}
+                                                    {{ method_field('delete') }}
+                                                    <button type="submit" class="btn btn-danger delete btn-sm"><i
+                                                            class="fa fa-trash"></i> @lang('site.delete')</button>
+                                                </form><!-- end of form -->
                                         @endif
                                     </td>
                                 </tr>

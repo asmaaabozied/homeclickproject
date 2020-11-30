@@ -77,6 +77,37 @@
                         </div>
 
 
+                        <div class="row">
+
+
+                            <div class="form-group col-md-6">
+
+                                <label>@lang('site.categories')</label>
+
+                                <select class="form-control select2" name="catogery_id" id="parent" required>
+                                    <option selected disabled>{{trans('site.select')}}</option>
+                                    @foreach($catogeries as $id => $item)
+                                        <option value="{{$id}}" >{{$item}}</option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+                            <div class="form-group col-md-6">
+
+                                <label>@lang('site.products')</label>
+
+                                <select class="form-control select2" name="product_id" id="parent" required>
+                                    <option selected disabled>{{trans('site.select')}}</option>
+                                    @foreach($products as $id => $item)
+                                        <option value="{{$id}}" >{{$item}}</option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
 
 
 

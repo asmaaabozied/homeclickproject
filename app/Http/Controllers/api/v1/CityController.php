@@ -34,7 +34,7 @@ class CityController extends Controller
     }
 
 
-    public function cities()
+    public function listofcountry()
     {
         $cities = Geography::whereNull('parent_id')->get();
 
@@ -44,10 +44,30 @@ class CityController extends Controller
     }
 
 
-    public function listofcountry()
+    public function listofcities(Request $request)
+
     {
 
-        $cities = Geography::where('parent_id', '!=', null)->get();
+
+        $rule = [
+
+            'country_id' => 'required',
+
+
+        ];
+        $customMessages = [
+            'required' => __('validation.attributes.required'),
+        ];
+
+        $validator = validator()->make($request->all(), $rule, $customMessages);
+
+        if ($validator->fails()) {
+
+            return response()->json(['status' => 422, 'message' => validationErrorsToString($validator->errors())], 422);
+
+        }
+
+        $cities = Geography::where('parent_id', $request->country_id)->get();
 
         return response()->json(['status' => 200, 'cities' => $cities]);
 

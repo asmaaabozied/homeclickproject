@@ -1,7 +1,11 @@
 <?php
 
 return [
+    'lat'>'latitaude',
+    'lon'=>'longitaude',
 
+    'hours'=>'work hours',
+    'value'=>'Delivery value',
     'dashboard' => 'Home Page',
     'complain' => 'Complains',
     'products' => 'products',
@@ -275,6 +279,7 @@ return [
     'owner_name' => "owner_name",
     "amenities" => "Amenities",
     'icon' => 'icon',
+
 
     'plane_details' => 'Plane Details',
     'plan_price' => 'Plan Price',

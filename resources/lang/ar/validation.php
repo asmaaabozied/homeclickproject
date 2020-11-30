@@ -151,6 +151,7 @@ return [
 
 
     'attributes' => [
+        'copan'=>'الكوبون',
         'social_type'=>'التواصل',
         'google_id'=>'رقم جؤجل',
         'twitter_id'=>'رقم',

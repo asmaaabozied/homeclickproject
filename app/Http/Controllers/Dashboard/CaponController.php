@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\Dashboard;
+
 use App\Capon;
+use App\Category;
 use App\Catogery;
 use App\Mail\MailMessage;
 use App\Offer;
@@ -15,6 +17,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+
 //use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
@@ -30,22 +33,25 @@ class CaponController extends Controller
      */
     public function index(Request $request)
     {
-        $capons =Capon::latest()->paginate(Paginate_number);
+        $capons = Capon::latest()->paginate(Paginate_number);
 
 
-        return view('dashboard.caponss.index',compact('capons'));
+        return view('dashboard.caponss.index', compact('capons'));
 
     }
+
     /**
      * Show the form for creating a new resource.
      * @return Response
      */
     public function create()
     {
+        $catogeries = Category::get()->pluck('name', 'id');
+
+        $products = Product::get()->pluck('name', 'id');
 
 
-
-        return view('dashboard.caponss.create');
+        return view('dashboard.caponss.create', compact('catogeries', 'products'));
     }
 
     /**
@@ -55,13 +61,11 @@ class CaponController extends Controller
      */
 
 
-
-
     public function store(Request $request)
     {
 
 
-     $capon=Capon::create($request->except(['_token','_method']));
+        $capon = Capon::create($request->except(['_token', '_method']));
 
 
         session()->flash('success', __('site.added_successfully'));
@@ -78,10 +82,7 @@ class CaponController extends Controller
     {
 
 
-
-
     }
-
 
 
     /**
@@ -91,10 +92,12 @@ class CaponController extends Controller
      */
     public function edit(Capon $capon)
     {
+        $catogeries = Category::get()->pluck('name', 'id');
+
+        $products = Product::get()->pluck('name', 'id');
 
 
-
-        return view('dashboard.caponss.edit',compact('capon'));
+        return view('dashboard.caponss.edit', compact('capon', 'catogeries', 'products'));
 
 
     }
@@ -108,12 +111,10 @@ class CaponController extends Controller
     public function update(Request $request, $id)
     {
 
-        $capon=Capon::find($id);
+        $capon = Capon::find($id);
 
 
-
-
-           $attributes=$request->all();
+        $attributes = $request->all();
 
 
         $capon->update($attributes);
@@ -130,15 +131,13 @@ class CaponController extends Controller
      * @return Response
      * @throws \Exception
      */
-    public function destroy( $id)
+    public function destroy($id)
     {
         Capon::find($id)->delete();
         session()->flash('success', __('site.deleted_successfully'));
 
         return back();
     }
-
-
 
 
 }

@@ -53,7 +53,11 @@
                                 <th>#</th>
                                 <th>@lang('site.name')</th>
 
-                                <th>@lang('site.description')</th>
+                                <th>@lang('site.price')</th>
+
+                                <th>@lang('site.start_at')</th>
+
+                                <th>@lang('site.end_at')</th>
 
                                 <th>@lang('site.created_at')</th>
 
@@ -67,9 +71,9 @@
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{isset($sub->name)?$sub->name: '' }}</td>
-                                    <td>{{ isset($sub->description) ?$sub->description : '' }}</td>
-
-
+                                    <td>{{ isset($sub->price) ?$sub->price : '' }}</td>
+                                    <td>{{ isset($sub->start_at) ?$sub->start_at : '' }}</td>
+                                    <td>{{ isset($sub->end_at) ?$sub->end_at : '' }}</td>
 
 
 

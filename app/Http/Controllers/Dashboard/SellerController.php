@@ -121,12 +121,12 @@ class SellerController extends Controller
             'description' => 'required|string'
         ]);
 
-        $sellers = Store::create($request->except(['_token', '_method', 'images', 'password', 'password_confirmation']));
+        $sellers = Store::create($request->except(['_token', '_method', 'images', 'password', 'password_confirmation','icon','image']));
         $sellers['password'] = bcrypt($request->password);
 
 
         $user = User::create(
-            $request->except(['_token', '_method', 'name', 'images', 'password', 'password_confirmation', 'image', 'phone', 'description'])
+            $request->except(['_token', '_method', 'name','icon', 'images', 'password', 'password_confirmation', 'image', 'phone', 'description'])
             + ['type' => 'Seller'] + ['name' => 'Seller']
         );
         $user['password'] = bcrypt($request->password);
@@ -170,6 +170,15 @@ class SellerController extends Controller
         }
 
 
+        if ($request->hasFile('icon')) {
+            $thumbnail = $request->file('icon');
+            $filename = time() . '.' . $thumbnail->getClientOriginalExtension();
+            \Intervention\Image\Facades\Image::make($thumbnail)->resize(300, 300)->save(public_path('/uploads/' . $filename));
+            $sellers->icon = $filename;
+            $sellers->save();
+        }
+
+
         session()->flash('success', __('site.added_successfully'));
         return redirect()->route('dashboard.sellers.index');
 
@@ -202,7 +211,7 @@ class SellerController extends Controller
 
         ]);
 
-        $store->update($request->except(['_token', '_method', 'images', 'password_confirmation', 'password', 'name']));
+        $store->update($request->except(['_token', '_method', 'images', 'password_confirmation', 'password', 'icon','image']));
         $store['password'] = bcrypt($request->password);
         $store['name'] = 'Seller';
 
@@ -238,6 +247,15 @@ class SellerController extends Controller
             $filename = time() . '.' . $thumbnail->getClientOriginalExtension();
             \Intervention\Image\Facades\Image::make($thumbnail)->resize(300, 300)->save(public_path('/uploads/' . $filename));
             $store->image = $filename;
+            $store->save();
+        }
+
+
+        if ($request->hasFile('icon')) {
+            $thumbnail = $request->file('icon');
+            $filename = time() . '.' . $thumbnail->getClientOriginalExtension();
+            \Intervention\Image\Facades\Image::make($thumbnail)->resize(300, 300)->save(public_path('/uploads/' . $filename));
+            $store->icon = $filename;
             $store->save();
         }
 

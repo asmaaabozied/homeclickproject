@@ -21,9 +21,16 @@ class ProductController extends Controller
     public function index(Request $request)
     {
 
-       //abort_unless(\Gate::allows('read_categories'), 403);
+        //abort_unless(\Gate::allows('read_categories'), 403);
+        if (Auth::id() == 1) {
+            $products = Product::latest()->paginate(25);
 
-        $products =Product::latest()->paginate(25);
+
+        } else {
+            $products = Product::where('family_id', Auth::id())->latest()->paginate(25);
+
+
+        }
 
         return view('dashboard.products.index', compact('products'));
 
@@ -31,10 +38,10 @@ class ProductController extends Controller
 
     public function create()
     {
-      // abort_unless(\Gate::allows('create_categories'), 403);
-        $catogeries=Category::get()->pluck('name','id');
+        // abort_unless(\Gate::allows('create_categories'), 403);
+        $catogeries = Category::where('store_id',Auth::id())->get()->pluck('name', 'id');
 
-        return view('dashboard.products.create',compact('catogeries'));
+        return view('dashboard.products.create', compact('catogeries'));
 
     }//end of create
 
@@ -53,7 +60,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
 
-        $rules = ['price'=>'required'];
+        $rules = ['price' => 'required'];
 
         foreach (config('translatable.locales') as $locale) {
 
@@ -64,10 +71,10 @@ class ProductController extends Controller
 
         $request->validate($rules);
 
-       $product= Product::create($request->except(['_token','_method','images'])+ ['family_id'=>Auth::id()]);
+        $product = Product::create($request->except(['_token', '_method', 'images']) + ['family_id' => Auth::id()]);
 
 
-        if($request->file('images')) {
+        if ($request->file('images')) {
 
             $imagess = $request->file('images');
 
@@ -87,13 +94,13 @@ class ProductController extends Controller
                 $image = new \App\Image();
                 $image->image = $img;
                 $image->imageable_id = $product->id;
-                $image->imageable_type ='App\Product';
+                $image->imageable_type = 'App\Product';
                 $image->save();
 
             }
         }
 
-        if($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             $thumbnail = $request->file('image');
 //            $filename = time() . '.' . $thumbnail->getClientOriginalExtension();
             $filename = $thumbnail->hashName();
@@ -109,17 +116,18 @@ class ProductController extends Controller
 
     public function edit($id)
     {
-        $product=Product::find($id);
-        $catogeries=Category::get()->pluck('name','id');
+        $product = Product::find($id);
+        $catogeries = Category::where('store_id',Auth::id())->get()->pluck('name', 'id');
 
-        return view('dashboard.products.edit',compact('product','catogeries'));
+
+        return view('dashboard.products.edit', compact('product', 'catogeries'));
 
     }//end of edit
 
     public function update(Request $request, $id)
     {
 
-        $product=Product::find($id);
+        $product = Product::find($id);
 
         $rules = [];
 
@@ -133,12 +141,12 @@ class ProductController extends Controller
 
         $request->validate($rules);
 
-        $product->update($request->except(['_token','_method','images']));
+        $product->update($request->except(['_token', '_method', 'images']));
 
-        if($request->file('images')) {
+        if ($request->file('images')) {
 
             $imagess = $request->file('images');
-\App\Image::where('imageable_id',$product->id)->where('imageable_type','App\Product')->delete();
+            \App\Image::where('imageable_id', $product->id)->where('imageable_type', 'App\Product')->delete();
 
             foreach ($imagess as $images) {
                 $img = "";
@@ -155,13 +163,13 @@ class ProductController extends Controller
                 $image = new \App\Image();
                 $image->image = $img;
                 $image->imageable_id = $product->id;
-                $image->imageable_type ='App\Product';
+                $image->imageable_type = 'App\Product';
                 $image->save();
 
             }
         }
 
-        if($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             $thumbnail = $request->file('image');
 //            $filename = time() . '.' . $thumbnail->getClientOriginalExtension();
             $filename = $thumbnail->hashName();
@@ -176,11 +184,11 @@ class ProductController extends Controller
 
     }//end of update
 
-    public function destroy($id )
+    public function destroy($id)
     {
 
-      //  abort_unless(\Gate::allows('category_delete'), 403);
-        $product=Product::find($id);
+        //  abort_unless(\Gate::allows('category_delete'), 403);
+        $product = Product::find($id);
         $product->translations()->delete();
 
 
@@ -191,19 +199,18 @@ class ProductController extends Controller
     }//end of destroy
 
 
+    public function change_status($id)
+    {
 
-    public function change_status($id){
-
-        $info= Product::find($id);
-        $status=( $info->status == 0)?1:0;
-        $info->status=$status;
+        $info = Product::find($id);
+        $status = ($info->status == 0) ? 1 : 0;
+        $info->status = $status;
         $info->save();
         session()->flash('success', __('site.updated_successfully'));
         return back();
 
 
     }//end of change
-
 
 
 }//end of controller

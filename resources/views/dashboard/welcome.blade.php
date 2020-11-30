@@ -14,6 +14,7 @@
         </section>
 
         <section class="content">
+            @if (auth()->user()->hasPermission('read_roles'))
 
             <div class="row">
 
@@ -63,7 +64,7 @@
 
             </div><!-- end of row -->
 
-
+            @endif
         </section><!-- end of content -->
 
     </div><!-- end of content wrapper -->

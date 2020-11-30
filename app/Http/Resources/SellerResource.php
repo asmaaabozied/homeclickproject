@@ -22,6 +22,18 @@ class SellerResource extends JsonResource
 
             'name'=>$this->name,
 
+            'phone'=>$this->phone,
+
+            'latitude'=>$this->lat ?? '',
+
+            'longitude'=>$this->lon ?? '',
+
+
+            'Delivery value'=>$this->value,
+
+            'work hours'=>$this->hours,
+
+
             'description'=>$this->description,
 
             'status'=>$this->status,
@@ -32,6 +44,8 @@ class SellerResource extends JsonResource
 
 
             'image'   => asset('uploads/'. $this->image),
+
+            'icon'   => asset('uploads/'. $this->icon),
 
 
             'files'=>ImageResource::collection($this->images),

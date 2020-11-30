@@ -10,6 +10,12 @@ class Offer extends Model
 
     protected $guarded = [];
 
+    protected $hidden = [
+        'created_by', 'updated_by', 'updated_at', 'deleted_at', 'deleted_by'
+    ];
+    protected $with=['product'];
+
+
 
     public function product()
     {

@@ -53,6 +53,7 @@ return [
 
         'Seller' => [
             'sellers' => 'c,r,u,d',
+            'offers' => 'c,r,u,d',
 
 
         ]

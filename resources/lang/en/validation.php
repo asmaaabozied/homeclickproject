@@ -149,6 +149,7 @@ return [
 
 
     'attributes' => [
+        'copan'=>'coupans',
         'social_type'=>'social_type',
         'google_id'=>'google_id',
         'twitter_id'=>'twitter_id',
